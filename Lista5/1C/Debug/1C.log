@@ -1,0 +1,3 @@
+﻿  Origem.cpp
+C:\Users\camyl\OneDrive\Área de Trabalho\Lista5\Lista5\1C\Origem.cpp(50,25): warning C4305: 'inicializando': truncamento de 'double' para 'float'
+  1C.vcxproj -> C:\Users\camyl\OneDrive\Área de Trabalho\Lista5\Lista5\Debug\1C.exe

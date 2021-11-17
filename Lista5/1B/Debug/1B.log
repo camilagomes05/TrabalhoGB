@@ -1,0 +1,7 @@
+﻿  Origem.cpp
+C:\Users\camyl\OneDrive\Área de Trabalho\Lista5\Lista5\1B\Origem.cpp(50,25): warning C4305: 'inicializando': truncamento de 'double' para 'float'
+  Sprite.cpp
+C:\Users\camyl\OneDrive\Área de Trabalho\Lista5\Lista5\1B\Sprite.cpp(12,11): warning C4244: '=': conversão de 'double' para 'float', possível perda de dados
+C:\Users\camyl\OneDrive\Área de Trabalho\Lista5\Lista5\1B\Sprite.cpp(13,11): warning C4244: '=': conversão de 'double' para 'float', possível perda de dados
+  Gerando Código...
+  1B.vcxproj -> C:\Users\camyl\OneDrive\Área de Trabalho\Lista5\Lista5\Debug\1B.exe
