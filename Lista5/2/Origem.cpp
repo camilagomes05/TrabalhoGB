@@ -96,62 +96,169 @@ int main()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// Compilando e buildando o programa de shader
+
 	Shader* shader = new Shader("./shaders/sprite.vs", "./shaders/sprite.fs");
-	Shader* shader2 = new Shader("./shaders/sprite2.vs", "./shaders/sprite2.fs");
-	Shader* shader3 = new Shader("./shaders/sprite3.vs", "./shaders/sprite3.fs");
-	Shader* shader4 = new Shader("./shaders/sprite4.vs", "./shaders/sprite4.fs");
+	Shader* sprShader = new Shader("./shaders/animatedsprites.vs", "./shaders/animatedsprites.fs");
 
-	GLuint texID = loadTexture("./textures/lena.png");
+	Shader* shaders[8];
+	
+	int j = 0;
 
-	Object background;
-	background.initialize();
-	background.setPosition(glm::vec3(100.0, 300.0, 0.0));
-	background.setDimensions(glm::vec3(180.0, 180.0, 1.0));
-	background.setTexture(texID);
-	background.setShader(shader);
+	while (j <= 1) {
 
-	Object background2;
-	background2.initialize();
-	background2.setPosition(glm::vec3(300.0, 300.0, 0.0));
-	background2.setDimensions(glm::vec3(180.0, 180.0, 1.0));
-	background2.setTexture(texID);
-	background2.setShader(shader2);
+		//shaders[i] = new Shader("./textures/sh" + to_string(j) + ".png", "./shaders/sprite2.fs");
+		shaders[0] = new Shader("./shaders/sprite2.vs", "./shaders/sprite2.fs");
+		shaders[1] = new Shader("./shaders/sprite3.vs", "./shaders/sprite3.fs");
+		shaders[2] = new Shader("./shaders/sprite4.vs", "./shaders/sprite4.fs");
+		shaders[3] = new Shader("./shaders/sprite5.vs", "./shaders/sprite5.fs");
+		shaders[4] = new Shader("./shaders/sprite6.vs", "./shaders/sprite6.fs");
+		shaders[5] = new Shader("./shaders/sprite7.vs", "./shaders/sprite7.fs");
+		shaders[6] = new Shader("./shaders/sprite8.vs", "./shaders/sprite8.fs");
+		shaders[7] = new Shader("./shaders/sprite9.vs", "./shaders/sprite9.fs");
 
-	Object background3;
-	background3.initialize();
-	background3.setPosition(glm::vec3(500.0, 300.0, 0.0));
-	background3.setDimensions(glm::vec3(180.0, 180.0, 1.0));
-	background3.setTexture(texID);
-	background3.setShader(shader3);
+		j++;
+	}
 
-	Object background4;
-	background4.initialize();
-	background4.setPosition(glm::vec3(700.0, 300.0, 0.0));
-	background4.setDimensions(glm::vec3(180.0, 180.0, 1.0));
-	background4.setTexture(texID);
-	background4.setShader(shader4);
+	// Background
+
+	GLuint texID = loadTexture("./textures/fundo.jpg");
+
+	Object backgroud;
+	backgroud.initialize();
+	backgroud.setPosition(glm::vec3(400, 300, 0));
+	backgroud.setDimensions(glm::vec3(800, 600, 1.0));
+	backgroud.setTexture(texID);
+	backgroud.setShader(shader);
+
+
+	// imagem
+
+	GLuint texID2 = loadTexture("./textures/lena.png");
+
+	Object foto;
+	foto.initialize();
+	foto.setPosition(glm::vec3(400, 330, 0));
+	foto.setDimensions(glm::vec3(300, 300, 1.0));
+	foto.setTexture(texID2);
+	foto.setShader(shader);
+
+
+	//Icones
 
 	vector <Object> objects;
 
-	float xini = 100;
-	float yini = 100;
 
-	float objW = 100;
-	float objH = 120;
+	//Retornando erro :/
+	/*GLuint img[5];
+	Object icon[5];
 
-	for (int i = 0; i < 5; i++)
-	{
-		for (int j = 0; j < 6; j++)
-		{
-			Object obj;
-			obj.initialize();
-			obj.setPosition(glm::vec3(xini + j * objW, yini + i * objH, 0.0));
-			obj.setDimensions(glm::vec3(objW, objH, 1.0));
-			obj.setTexture(texID);
-			obj.setShader(shader);
-			objects.push_back(obj);
+	int k = 0;
+	int posX = 345.0;
+
+	while (k <= 6) {
+		img[k] = loadTexture("./textures/sh" + to_string(k) + ".png");
+		icon[k].initialize();
+		if (k == 0) {
+			icon[0].setPosition(glm::vec3(posX, 500.0, 0.0));
 		}
+		else {
+			icon[k].setPosition(glm::vec3(posX + 45.0, 500.0, 0.0));
+			posX = posX + 45.0;
+		}
+		icon[k].setDimensions(glm::vec3(40.0, 40.0, 1.0));
+		icon[k].setTexture(img[k]);
+		icon[k].setShader(shader);
+		k++;
+	}*/
+
+	GLuint texID3 = loadTexture("./textures/0.png");
+
+	Object chapeu;
+	chapeu.initialize();
+	chapeu.setPosition(glm::vec3(345, 500, 0.0));
+	chapeu.setDimensions(glm::vec3(35, 35, 1.0));
+	chapeu.setTexture(texID3);
+	chapeu.setShader(shader);
+
+	GLuint texID4 = loadTexture("./textures/1.png");
+
+	Object core;
+	core.initialize();
+	core.setPosition(glm::vec3(390, 500, 0.0));
+	core.setDimensions(glm::vec3(35, 35, 1.0));
+	core.setTexture(texID4);
+	core.setShader(shader);
+
+	GLuint texID5 = loadTexture("./textures/2.png");
+
+	Object core2;
+	core2.initialize();
+	core2.setPosition(glm::vec3(435, 500, 0.0));
+	core2.setDimensions(glm::vec3(40, 40, 1.0));
+	core2.setTexture(texID5);
+	core2.setShader(shader);
+
+	GLuint texID6 = loadTexture("./textures/3.png");
+
+	Object sol;
+	sol.initialize();
+	sol.setPosition(glm::vec3(480, 500, 0.0));
+	sol.setDimensions(glm::vec3(40, 40, 1.0));
+	sol.setTexture(texID6);
+	sol.setShader(shader);
+
+	GLuint texID7 = loadTexture("./textures/4.png");
+
+	Object like;
+	like.initialize();
+	like.setPosition(glm::vec3(525, 500, 0.0));
+	like.setDimensions(glm::vec3(30, 30, 1.0));
+	like.setTexture(texID7);
+	like.setShader(shader);
+
+	// Filtros
+
+	Object filtro[8];
+	GLuint lena[8];
+
+	int i = 0;
+	int positionX = 50.0;
+
+	while (i <= 7) {
+
+		lena[i] = loadTexture("./textures/lena.png");
+		filtro[i].initialize();
+		if (i == 0) {
+			filtro[i].setPosition(glm::vec3(positionX, 100.0, 0.0));
+		}
+		else {
+			filtro[i].setPosition(glm::vec3(positionX + 100.0, 100.0, 0.0));
+			positionX = positionX + 100.0;
+		}
+		filtro[i].setDimensions(glm::vec3(90.0, 90.0, 1.0));
+		filtro[i].setTexture(lena[i]);
+		filtro[i].setShader(shader);
+		i++;
 	}
+
+	// Yoshi
+
+	GLuint texID8 = loadTexture("./textures/yoshi.png");
+
+	Sprite yoshi;
+	yoshi.setSpritesheet(texID8, 2, 8);
+	yoshi.setPosition(glm::vec3(255, 500, 0.0));
+	yoshi.setDimensions(glm::vec3(35, 35, 1.0));
+	yoshi.setShader(sprShader);
+	yoshi.setAnimation(1);
+
+	GLuint texID9 = loadTexture("./textures/characterRun.png");
+
+	Sprite player;
+	player.setSpritesheet(texID9, 1, 6);
+	player.setPosition(glm::vec3(300, 500, 0.0));
+	player.setDimensions(glm::vec3(35, 35, 1.0));
+	player.setShader(sprShader);
 
 	// Gerando um buffer simples, com a geometria de um triângulo
 	//GLuint VAO = setupGeometry();
@@ -203,20 +310,55 @@ int main()
 		glClearColor(0.3f, 0.3f, 0.3f, 1.0f); //cor de fundo
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		float newRot = (float)glfwGetTime();
-		objects[0].setAngle(newRot);
+		backgroud.update();
+		backgroud.draw();
 
-		background.update();
-		background.draw();
+		foto.update();
+		foto.draw();
 
-		background2.update();
-		background2.draw();
+		chapeu.update();
+		chapeu.draw();
 
-		background3.update();
-		background3.draw();
+		core.update();
+		core.draw();
 
-		background4.update();
-		background4.draw();
+		core2.update();
+		core2.draw();
+
+		sol.update();
+		sol.draw();
+
+		like.update();
+		like.draw();
+
+		/*int q = 0;
+
+		while (q <= 6) {
+			icon[q].update();
+			icon[q].draw();
+			q++;
+		}*/
+
+		int p = 0;
+
+		while (p <= 7) {
+			filtro[p].update();
+			filtro[p].draw();
+			p++;
+		}
+
+		sprShader->Use();
+		sprShader->setMat4("projection", glm::value_ptr(ortho));
+
+
+		// Para caminhar lentamente
+		Sleep(200);
+
+		player.update();
+		player.draw();
+
+		yoshi.update();
+		yoshi.draw();
 
 		// Troca os buffers da tela
 		glfwSwapBuffers(window);
@@ -235,73 +377,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
-}
-
-// Esta função está bastante harcoded - objetivo é criar os buffers que armazenam a 
-// geometria de um triângulo
-// Apenas atributo coordenada nos vértices
-// 1 VBO com as coordenadas, VAO com apenas 1 ponteiro para atributo
-// A função retorna o identificador do VAO
-int setupGeometry()
-{
-	// Aqui setamos as coordenadas x, y e z do triângulo e as armazenamos de forma
-	// sequencial, já visando mandar para o VBO (Vertex Buffer Objects)
-	// Cada atributo do vértice (coordenada, cores, coordenadas de textura, normal, etc)
-	// Pode ser arazenado em um VBO único ou em VBOs separados
-	GLfloat* vertices;
-
-	vertices = new GLfloat[nPoints * 3];
-
-	float angle = 0.0;
-	float deltaAngle = 2 * pi / (float)(nPoints - 2);
-	float radius = 0.5;
-
-	//Adicionar o centro
-	vertices[0] = 0.0; // x
-	vertices[1] = 0.0; // y
-	vertices[2] = 0.0; // z sempre zero 
-
-	for (int i = 3; i < nPoints * 3; i += 3)
-	{
-		vertices[i] = radius * cos(angle);
-		vertices[i + 1] = radius * sin(angle);
-		vertices[i + 2] = 0.0;
-
-		angle += deltaAngle;
-	}
-
-	GLuint VBO, VAO;
-
-	//Geração do identificador do VBO
-	glGenBuffers(1, &VBO);
-	//Faz a conexão (vincula) do buffer como um buffer de array
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	//Envia os dados do array de floats para o buffer da OpenGl
-	glBufferData(GL_ARRAY_BUFFER, (nPoints * 3) * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
-
-	//Geração do identificador do VAO (Vertex Array Object)
-	glGenVertexArrays(1, &VAO);
-	// Vincula (bind) o VAO primeiro, e em seguida  conecta e seta o(s) buffer(s) de vértices
-	// e os ponteiros para os atributos 
-	glBindVertexArray(VAO);
-	//Para cada atributo do vertice, criamos um "AttribPointer" (ponteiro para o atributo), indicando: 
-	// Localização no shader * (a localização dos atributos devem ser correspondentes no layout especificado no vertex shader)
-	// Numero de valores que o atributo tem (por ex, 3 coordenadas xyz) 
-	// Tipo do dado
-	// Se está normalizado (entre zero e um)
-	// Tamanho em bytes 
-	// Deslocamento a partir do byte zero 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
-	glEnableVertexAttribArray(0);
-
-	// Observe que isso é permitido, a chamada para glVertexAttribPointer registrou o VBO como o objeto de buffer de vértice 
-	// atualmente vinculado - para que depois possamos desvincular com segurança
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	// Desvincula o VAO (é uma boa prática desvincular qualquer buffer ou array para evitar bugs medonhos)
-	glBindVertexArray(0);
-
-	return VAO;
 }
 
 int loadTexture(string path)
@@ -325,11 +400,6 @@ int loadTexture(string path)
 
 	if (data)
 	{
-		for (int i = 0; i < width * height * nrChannels; i += nrChannels)
-		{
-	
-		}
-
 		if (nrChannels == 3) //jpg, bmp
 		{
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -357,40 +427,7 @@ GLuint createSprite()
 	GLuint VAO;
 	GLuint VBO, EBO;
 
-	float vertices[] = {
-		// positions          // colors          // texture coords
-		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0, // top right
-		0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
-		-0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
-		-0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 0.0f,   0.0f, 1.0  // top left 
-	};
-	unsigned int indices[] = {
-	0, 1, 3, // first triangle
-	1, 2, 3  // second triangle
-	};
-
 	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
-
-	glBindVertexArray(VAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-	// position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-	// color attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-	// texture coord attribute
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-	glEnableVertexAttribArray(2);
 
 	return VAO;
 }
-

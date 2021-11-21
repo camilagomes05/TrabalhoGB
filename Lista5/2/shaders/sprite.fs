@@ -10,7 +10,4 @@ uniform sampler2D tex1;
 void main()
 {
     color = texture(tex1, TexCoord);
-
-    color.r = color.g;
-    color.b = color.g;
 }

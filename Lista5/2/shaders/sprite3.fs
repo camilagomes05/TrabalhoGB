@@ -11,6 +11,6 @@ void main()
 {
     color = texture(tex1, TexCoord);
 
-    color.r = color.b;
-    color.g = color.b;
+    color.b = color.r;
+    color.g = color.r;
 }

@@ -24,6 +24,7 @@
     <ProjectGuid>{0a7eb7fd-b3ff-48c9-bb76-2818fc3de2a2}</ProjectGuid>
     <RootNamespace>My2</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>TrabalhoGB</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -148,14 +149,18 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="stb_image.cpp" />
+    <ClCompile Include="stb_image_write.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="stb_image_write.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\Documentos\Unisinos\Lista5\Lista5\1B\shaders\animatedsprites.fs" />
+    <None Include="..\..\..\..\Documentos\Unisinos\Lista5\Lista5\1B\shaders\animatedsprites.vs" />
     <None Include="shaders\sprite.fs" />
     <None Include="shaders\sprite.vs" />
     <None Include="shaders\sprite2.fs" />
@@ -164,6 +169,16 @@
     <None Include="shaders\sprite3.vs" />
     <None Include="shaders\sprite4.fs" />
     <None Include="shaders\sprite4.vs" />
+    <None Include="shaders\sprite5.fs" />
+    <None Include="shaders\sprite5.vs" />
+    <None Include="shaders\sprite6.fs" />
+    <None Include="shaders\sprite6.vs" />
+    <None Include="shaders\sprite7.fs" />
+    <None Include="shaders\sprite7.vs" />
+    <None Include="shaders\sprite8.fs" />
+    <None Include="shaders\sprite8.vs" />
+    <None Include="shaders\sprite9.fs" />
+    <None Include="shaders\sprite9.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
