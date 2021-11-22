@@ -1,7 +1,8 @@
-﻿  Origem.cpp
-C:\Users\camyl\OneDrive\Área de Trabalho\Trabalho GB -  Camila e Pamela\Lista5\2\Origem.cpp(50,25): warning C4305: 'inicializando': truncamento de 'double' para 'float'
-C:\Users\camyl\OneDrive\Área de Trabalho\Trabalho GB -  Camila e Pamela\Lista5\2\Origem.cpp(225,16): warning C4244: 'inicializando': conversão de 'double' para 'int', possível perda de dados
-C:\Users\camyl\OneDrive\Área de Trabalho\Trabalho GB -  Camila e Pamela\Lista5\2\Origem.cpp(236,26): warning C4244: '=': conversão de 'double' para 'int', possível perda de dados
-C:\Users\camyl\OneDrive\Área de Trabalho\Trabalho GB -  Camila e Pamela\Lista5\2\Origem.cpp(428,14): warning C4101: 'EBO': variável local não referenciada
-C:\Users\camyl\OneDrive\Área de Trabalho\Trabalho GB -  Camila e Pamela\Lista5\2\Origem.cpp(428,9): warning C4101: 'VBO': variável local não referenciada
-  2.vcxproj -> C:\Users\camyl\OneDrive\Área de Trabalho\Trabalho GB -  Camila e Pamela\Lista5\Debug\2.exe
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: O diretório intermediário (Debug\) contém arquivos compartilhados de outro projeto (2.vcxproj). Isso pode levar a um comportamento incorreto de limpeza e recompilação.
+  Origem.cpp
+C:\Users\camyl\OneDrive\Área de Trabalho\TrabalhoGB - Camila e Pamela\Lista5\2\Origem.cpp(50,25): warning C4305: 'inicializando': truncamento de 'double' para 'float'
+C:\Users\camyl\OneDrive\Área de Trabalho\TrabalhoGB - Camila e Pamela\Lista5\2\Origem.cpp(225,16): warning C4244: 'inicializando': conversão de 'double' para 'int', possível perda de dados
+C:\Users\camyl\OneDrive\Área de Trabalho\TrabalhoGB - Camila e Pamela\Lista5\2\Origem.cpp(236,26): warning C4244: '=': conversão de 'double' para 'int', possível perda de dados
+C:\Users\camyl\OneDrive\Área de Trabalho\TrabalhoGB - Camila e Pamela\Lista5\2\Origem.cpp(428,14): warning C4101: 'EBO': variável local não referenciada
+C:\Users\camyl\OneDrive\Área de Trabalho\TrabalhoGB - Camila e Pamela\Lista5\2\Origem.cpp(428,9): warning C4101: 'VBO': variável local não referenciada
+  2.vcxproj -> C:\Users\camyl\OneDrive\Área de Trabalho\TrabalhoGB - Camila e Pamela\Lista5\Debug\TrabalhoGB.exe

@@ -237,7 +237,7 @@ int main()
 		}
 		filtro[i].setDimensions(glm::vec3(90.0, 90.0, 1.0));
 		filtro[i].setTexture(lena[i]);
-		filtro[i].setShader(shader);
+		filtro[i].setShader(shaders[0]);
 		i++;
 	}
 
