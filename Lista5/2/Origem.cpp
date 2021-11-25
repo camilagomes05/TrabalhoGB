@@ -38,9 +38,9 @@ using namespace std;
 
 // Protótipo da função de callback de teclado
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
 // Protótipos das funções
-int setupGeometry();
 int loadTexture(string path);
 GLuint createSprite();
 
@@ -75,6 +75,8 @@ int main()
 
 	// Fazendo o registro da função de callback para a janela GLFW
 	glfwSetKeyCallback(window, key_callback);
+	glfwSetMouseButtonCallback(window, mouse_button_callback);
+
 
 	// GLAD: carrega todos os ponteiros d funções da OpenGL
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -101,22 +103,21 @@ int main()
 	Shader* sprShader = new Shader("./shaders/animatedsprites.vs", "./shaders/animatedsprites.fs");
 
 	Shader* shaders[8];
+	string vs[8];
+	string fs[8];
 	
 	int j = 0;
+	int k = 2;
 
-	while (j <= 1) {
+	while (j <= 7 || k <= 9) {
 
-		//shaders[i] = new Shader("./textures/sh" + to_string(j) + ".png", "./shaders/sprite2.fs");
-		shaders[0] = new Shader("./shaders/sprite2.vs", "./shaders/sprite2.fs");
-		shaders[1] = new Shader("./shaders/sprite3.vs", "./shaders/sprite3.fs");
-		shaders[2] = new Shader("./shaders/sprite4.vs", "./shaders/sprite4.fs");
-		shaders[3] = new Shader("./shaders/sprite5.vs", "./shaders/sprite5.fs");
-		shaders[4] = new Shader("./shaders/sprite6.vs", "./shaders/sprite6.fs");
-		shaders[5] = new Shader("./shaders/sprite7.vs", "./shaders/sprite7.fs");
-		shaders[6] = new Shader("./shaders/sprite8.vs", "./shaders/sprite8.fs");
-		shaders[7] = new Shader("./shaders/sprite9.vs", "./shaders/sprite9.fs");
+		vs[j] = "./shaders/sprite" + to_string(k) + ".vs";
+		fs[j] = "./shaders/sprite" + to_string(k) + ".fs";
+
+		shaders[j] = new Shader(vs[j].c_str(), fs[j].c_str());
 
 		j++;
+		k++;
 	}
 
 	// Background
@@ -130,6 +131,9 @@ int main()
 	backgroud.setTexture(texID);
 	backgroud.setShader(shader);
 
+	string nomeImg;
+	cout << "Digite o nome/path da imagem: ";
+	cin >> nomeImg;
 
 	// imagem
 
@@ -147,74 +151,27 @@ int main()
 
 	vector <Object> objects;
 
-
-	//Retornando erro :/
-	/*GLuint img[5];
+	GLuint img[5];
 	Object icon[5];
 
-	int k = 0;
+	int l = 0;
 	int posX = 345.0;
 
-	while (k <= 6) {
-		img[k] = loadTexture("./textures/sh" + to_string(k) + ".png");
-		icon[k].initialize();
-		if (k == 0) {
+	while (l <= 4) {
+		img[l] = loadTexture("./textures/" + to_string(l) + ".png");
+		icon[l].initialize();
+		if (l == 0) {
 			icon[0].setPosition(glm::vec3(posX, 500.0, 0.0));
 		}
 		else {
-			icon[k].setPosition(glm::vec3(posX + 45.0, 500.0, 0.0));
+			icon[l].setPosition(glm::vec3(posX + 45.0, 500.0, 0.0));
 			posX = posX + 45.0;
 		}
-		icon[k].setDimensions(glm::vec3(40.0, 40.0, 1.0));
-		icon[k].setTexture(img[k]);
-		icon[k].setShader(shader);
-		k++;
-	}*/
-
-	GLuint texID3 = loadTexture("./textures/0.png");
-
-	Object chapeu;
-	chapeu.initialize();
-	chapeu.setPosition(glm::vec3(345, 500, 0.0));
-	chapeu.setDimensions(glm::vec3(35, 35, 1.0));
-	chapeu.setTexture(texID3);
-	chapeu.setShader(shader);
-
-	GLuint texID4 = loadTexture("./textures/1.png");
-
-	Object core;
-	core.initialize();
-	core.setPosition(glm::vec3(390, 500, 0.0));
-	core.setDimensions(glm::vec3(35, 35, 1.0));
-	core.setTexture(texID4);
-	core.setShader(shader);
-
-	GLuint texID5 = loadTexture("./textures/2.png");
-
-	Object core2;
-	core2.initialize();
-	core2.setPosition(glm::vec3(435, 500, 0.0));
-	core2.setDimensions(glm::vec3(40, 40, 1.0));
-	core2.setTexture(texID5);
-	core2.setShader(shader);
-
-	GLuint texID6 = loadTexture("./textures/3.png");
-
-	Object sol;
-	sol.initialize();
-	sol.setPosition(glm::vec3(480, 500, 0.0));
-	sol.setDimensions(glm::vec3(40, 40, 1.0));
-	sol.setTexture(texID6);
-	sol.setShader(shader);
-
-	GLuint texID7 = loadTexture("./textures/4.png");
-
-	Object like;
-	like.initialize();
-	like.setPosition(glm::vec3(525, 500, 0.0));
-	like.setDimensions(glm::vec3(30, 30, 1.0));
-	like.setTexture(texID7);
-	like.setShader(shader);
+		icon[l].setDimensions(glm::vec3(40.0, 40.0, 1.0));
+		icon[l].setTexture(img[l]);
+		icon[l].setShader(shader);
+		l++;
+	}
 
 	// Filtros
 
@@ -237,7 +194,7 @@ int main()
 		}
 		filtro[i].setDimensions(glm::vec3(90.0, 90.0, 1.0));
 		filtro[i].setTexture(lena[i]);
-		filtro[i].setShader(shaders[0]);
+		filtro[i].setShader(shaders[i]);
 		i++;
 	}
 
@@ -266,6 +223,18 @@ int main()
 
 	//Ativando o shader que será usado
 	shader->Use();
+	
+	int n = 0;
+	while (n <= 7) {
+		shaders[n]->Use();
+
+		GLint projLoc = glGetUniformLocation(shaders[n]->Program, "projection");
+		assert(projLoc > -1);
+
+		glUniform1i(glGetUniformLocation(shaders[n]->Program, "tex1"), 0);
+
+		n++;
+	}
 
 	// Enviando a cor desejada (vec4) para o fragment shader
 	// Utilizamos a variáveis do tipo uniform em GLSL para armazenar esse tipo de info
@@ -287,6 +256,7 @@ int main()
 
 	shader->Use();
 	shader->setVec4("corColorizadora", 1.0, 1.0, 0.0, 1.0);
+
 
 	// Loop da aplicação - "game loop"
 	while (!glfwWindowShouldClose(window))
@@ -310,46 +280,35 @@ int main()
 		glClearColor(0.3f, 0.3f, 0.3f, 1.0f); //cor de fundo
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		string nomeImg;
+cout << "Digite o nome/path da imagem: ";
+cin >> nomeImg;
+
 		backgroud.update();
 		backgroud.draw();
 
 		foto.update();
 		foto.draw();
 
-		chapeu.update();
-		chapeu.draw();
+		int q = 0;
 
-		core.update();
-		core.draw();
-
-		core2.update();
-		core2.draw();
-
-		sol.update();
-		sol.draw();
-
-		like.update();
-		like.draw();
-
-		/*int q = 0;
-
-		while (q <= 6) {
+		while (q <= 4) {
 			icon[q].update();
 			icon[q].draw();
 			q++;
-		}*/
+		}
 
 		int p = 0;
 
 		while (p <= 7) {
 			filtro[p].update();
+			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(ortho));
 			filtro[p].draw();
 			p++;
 		}
 
 		sprShader->Use();
 		sprShader->setMat4("projection", glm::value_ptr(ortho));
-
 
 		// Para caminhar lentamente
 		Sleep(200);
@@ -377,6 +336,17 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
+}
+
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
+
+	int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+	if (state == GLFW_PRESS) {
+		double xpos, ypos;
+		glfwGetCursorPos(window, &xpos, &ypos);
+		cout << xpos << " " << ypos << endl;
+	}
+
 }
 
 int loadTexture(string path)
