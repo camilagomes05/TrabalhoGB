@@ -10,6 +10,7 @@ public:
     void setSpritesheet(GLuint texID, int nAnimations, int nFrames);
     inline void setAnimation(int iAnimation) { this->iAnimation = iAnimation; }
     inline void setFrame(int iFrame) { this->iFrame = iFrame; }
+    inline glm::vec3 getPosition() { return position; }
     void update();
     glm::vec4 getRectangle();
 

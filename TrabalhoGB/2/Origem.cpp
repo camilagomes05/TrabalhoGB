@@ -30,14 +30,15 @@ using namespace std;
 #include "Shader.h"
 
 #include "Object.h"
+
 #include "Sprite.h"
 
 #include <vector>
 
 using namespace std;
 
+
 // Protótipo da função de callback de teclado
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
 // Protótipos das funções
@@ -48,6 +49,7 @@ GLuint createSprite();
 const GLuint WIDTH = 800, HEIGHT = 600;
 const int nPoints = 100 + 1 + 1; //+centro +cópia do primeiro
 const float pi = 3.14159;
+double xpos, ypos, xposx, yposy;
 
 
 // Função MAIN
@@ -74,7 +76,6 @@ int main()
 	glfwMakeContextCurrent(window);
 
 	// Fazendo o registro da função de callback para a janela GLFW
-	glfwSetKeyCallback(window, key_callback);
 	glfwSetMouseButtonCallback(window, mouse_button_callback);
 
 
@@ -97,8 +98,9 @@ int main()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	// Compilando e buildando o programa de shader
 
+
+	// Compilando e buildando o programa de shader
 	Shader* shader = new Shader("./shaders/sprite.vs", "./shaders/sprite.fs");
 	Shader* sprShader = new Shader("./shaders/animatedsprites.vs", "./shaders/animatedsprites.fs");
 
@@ -120,8 +122,8 @@ int main()
 		k++;
 	}
 
-	// Background
 
+	// Background
 	GLuint texID = loadTexture("./textures/fundo.jpg");
 
 	Object backgroud;
@@ -132,14 +134,11 @@ int main()
 	backgroud.setShader(shader);
 
 	//Pedir imagem
-
-	/*string nomeImg;
+	string nomeImg;
 	cout << "Digite o nome/path da imagem: ";
-	cin >> nomeImg;*/
+	cin >> nomeImg;
 
-	// imagem
-
-	GLuint texID2 = loadTexture("./textures/lena.png");
+	GLuint texID2 = loadTexture(nomeImg);
 
 	Object foto;
 	foto.initialize();
@@ -150,7 +149,6 @@ int main()
 
 
 	//Icones
-
 	vector <Object> objects;
 
 	GLuint img[5];
@@ -163,10 +161,10 @@ int main()
 		img[l] = loadTexture("./textures/" + to_string(l) + ".png");
 		icon[l].initialize();
 		if (l == 0) {
-			icon[0].setPosition(glm::vec3(posX, 500.0, 0.0));
+			icon[0].setPosition(glm::vec3(posX, 510.0, 0.0));
 		}
 		else {
-			icon[l].setPosition(glm::vec3(posX + 45.0, 500.0, 0.0));
+			icon[l].setPosition(glm::vec3(posX + 45.0, 510.0, 0.0));
 			posX = posX + 45.0;
 		}
 		icon[l].setDimensions(glm::vec3(40.0, 40.0, 1.0));
@@ -175,8 +173,28 @@ int main()
 		l++;
 	}
 
-	// Filtros
 
+	// Yoshi
+
+	GLuint texID8 = loadTexture("./textures/yoshi.png");
+
+	Sprite yoshi;
+	yoshi.setSpritesheet(texID8, 2, 8);
+	yoshi.setPosition(glm::vec3(255, 510, 0.0));
+	yoshi.setDimensions(glm::vec3(40, 40, 1.0));
+	yoshi.setShader(sprShader);
+	yoshi.setAnimation(1);
+
+	GLuint texID9 = loadTexture("./textures/characterRun.png");
+
+	Sprite player;
+	player.setSpritesheet(texID9, 1, 6);
+	player.setPosition(glm::vec3(300, 510, 0.0));
+	player.setDimensions(glm::vec3(40, 40, 1.0));
+	player.setShader(sprShader);
+
+
+	// Filtros
 	Object filtro[8];
 	GLuint lena[8];
 
@@ -200,31 +218,19 @@ int main()
 		i++;
 	}
 
-	// Yoshi
-
-	GLuint texID8 = loadTexture("./textures/yoshi.png");
-
-	Sprite yoshi;
-	yoshi.setSpritesheet(texID8, 2, 8);
-	yoshi.setPosition(glm::vec3(255, 500, 0.0));
-	yoshi.setDimensions(glm::vec3(35, 35, 1.0));
-	yoshi.setShader(sprShader);
-	yoshi.setAnimation(1);
-
-	GLuint texID9 = loadTexture("./textures/characterRun.png");
-
-	Sprite player;
-	player.setSpritesheet(texID9, 1, 6);
-	player.setPosition(glm::vec3(300, 500, 0.0));
-	player.setDimensions(glm::vec3(35, 35, 1.0));
-	player.setShader(sprShader);
 
 	// Gerando um buffer simples, com a geometria de um triângulo
-	//GLuint VAO = setupGeometry();
 	GLuint VAO = createSprite();
+
 
 	//Ativando o shader que será usado
 	shader->Use();
+
+	GLint projLoc = glGetUniformLocation(shader->Program, "projection");
+	assert(projLoc > -1);
+
+	glUniform1i(glGetUniformLocation(shader->Program, "tex1"), 0);
+
 	
 	int n = 0;
 	while (n <= 7) {
@@ -238,26 +244,15 @@ int main()
 		n++;
 	}
 
-	// Enviando a cor desejada (vec4) para o fragment shader
-	// Utilizamos a variáveis do tipo uniform em GLSL para armazenar esse tipo de info
-	// que não está nos buffers
 
-	GLint projLoc = glGetUniformLocation(shader->Program, "projection");
-	assert(projLoc > -1);
-
-	/*GLint modelLoc = glGetUniformLocation(shader->Program, "model");
-	assert(modelLoc > -1);*/
-
-	glUniform1i(glGetUniformLocation(shader->Program, "tex1"), 0);
-
-	glm::mat4 ortho = glm::mat4(1); //inicializa com a matriz identidade
+	//inicializa com a matriz identidade
+	glm::mat4 ortho = glm::mat4(1); 
 
 	glm::mat4 model = glm::mat4(1);
 
 	double xmin = 0.0, xmax = 800.0, ymin = 0.0, ymax = 600.0;
 
 	shader->Use();
-	shader->setVec4("corColorizadora", 1.0, 1.0, 0.0, 1.0);
 
 
 	// Loop da aplicação - "game loop"
@@ -317,6 +312,82 @@ int main()
 		yoshi.update();
 		yoshi.draw();
 
+
+		//Mudar filtro
+		if (xpos >= 5 && xpos <= 95 && ypos >= 452 && ypos <= 545) {
+			foto.setShader(shaders[0]);
+		}
+		else if (xpos >= 104 && xpos <= 195 && ypos >= 452 && ypos <= 545) {
+			foto.setShader(shaders[1]);
+		}
+		else if (xpos >= 204 && xpos <= 295 && ypos >= 452 && ypos <= 545) {
+			foto.setShader(shaders[2]);
+		}
+		else if (xpos >= 304 && xpos <= 395 && ypos >= 452 && ypos <= 545) {
+			foto.setShader(shaders[3]);
+		}
+		else if (xpos >= 404 && xpos <= 495 && ypos >= 452 && ypos <= 545) {
+			foto.setShader(shaders[4]);
+		}
+		else if (xpos >= 504 && xpos <= 595 && ypos >= 452 && ypos <= 545) {
+			foto.setShader(shaders[5]);
+		}
+		else if (xpos >= 604 && xpos <= 695 && ypos >= 452 && ypos <= 545) {
+			foto.setShader(shaders[6]);
+		}
+		else if (xpos >= 704 && xpos <= 795 && ypos >= 452 && ypos <= 545) {
+			foto.setShader(shaders[7]);
+		}
+		else if (xpos >= 0 && xpos <= 250 && ypos >= 115 && ypos <= 425) {
+			foto.setShader(shader);
+		}
+
+
+		//Mexer icon
+		glfwGetCursorPos(window, &xposx, &yposy);
+
+		if (xpos >= 235 && xpos <= 275 && ypos >= 50 && ypos <= 110) {
+			yoshi.setPosition(glm::vec3(xposx, yposy, 0.0));
+		}
+		else if (xpos >= 285 && xpos <= 325 && ypos >= 50 && ypos <= 110) {
+			player.setPosition(glm::vec3(xposx, yposy, 0.0));
+		}
+		else if (xpos >= 326 && xpos <= 360 && ypos >= 50 && ypos <= 110) {
+			icon[0].setPosition(glm::vec3(xposx, yposy, 0.0));
+		}
+		else if (xpos >= 367 && xpos <= 410 && ypos >= 50 && ypos <= 110) {
+			icon[1].setPosition(glm::vec3(xposx, yposy, 0.0));
+		}
+		else if (xpos >= 416 && xpos <= 457 && ypos >= 50 && ypos <= 110) {
+			icon[2].setPosition(glm::vec3(xposx, yposy, 0.0));
+		}
+		else if (xpos >= 460 && xpos <= 497 && ypos >= 50 && ypos <= 110) {
+			icon[3].setPosition(glm::vec3(xposx, yposy, 0.0));
+		}
+		else if (xpos >= 504 && xpos <= 546 && ypos >= 50 && ypos <= 110) {
+			icon[4].setPosition(glm::vec3(xposx, yposy, 0.0));
+		}
+		else if (xpos >= 550 && xpos <= 800 && ypos >= 115 && ypos <= 420) {
+			yoshi.setPosition(glm::vec3(255, 510, 0.0));
+			player.setPosition(glm::vec3(300, 510, 0.0));
+
+			int z = 0;
+
+			int iconposx = 345;
+
+			while (z <= 4) {
+				if (z == 0) {
+					icon[0].setPosition(glm::vec3(iconposx, 510.0, 0.0));
+				}
+				else {
+					icon[z].setPosition(glm::vec3(iconposx + 45.0, 510.0, 0.0));
+					iconposx = iconposx + 45.0;
+				}
+				z++;
+		    }
+		}
+
+
 		// Troca os buffers da tela
 		glfwSwapBuffers(window);
 	}
@@ -327,20 +398,9 @@ int main()
 	return 0;
 }
 
-// Função de callback de teclado - só pode ter uma instância (deve ser estática se
-// estiver dentro de uma classe) - É chamada sempre que uma tecla for pressionada
-// ou solta via GLFW
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
-{
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
-}
-
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
-
 	int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
 	if (state == GLFW_PRESS) {
-		double xpos, ypos;
 		glfwGetCursorPos(window, &xpos, &ypos);
 		cout << xpos << " " << ypos << endl;
 	}
