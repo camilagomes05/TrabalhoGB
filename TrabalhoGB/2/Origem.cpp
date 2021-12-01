@@ -347,25 +347,25 @@ int main()
 		glfwGetCursorPos(window, &xposx, &yposy);
 
 		if (xpos >= 235 && xpos <= 275 && ypos >= 50 && ypos <= 110) {
-			yoshi.setPosition(glm::vec3(xposx, yposy, 0.0));
+			yoshi.setPosition(glm::vec3(xposx, 600 - yposy, 0.0));
 		}
 		else if (xpos >= 285 && xpos <= 325 && ypos >= 50 && ypos <= 110) {
-			player.setPosition(glm::vec3(xposx, yposy, 0.0));
+			player.setPosition(glm::vec3(xposx, 600 - yposy, 0.0));
 		}
 		else if (xpos >= 326 && xpos <= 360 && ypos >= 50 && ypos <= 110) {
-			icon[0].setPosition(glm::vec3(xposx, yposy, 0.0));
+			icon[0].setPosition(glm::vec3(xposx, 600 - yposy, 0.0));
 		}
 		else if (xpos >= 367 && xpos <= 410 && ypos >= 50 && ypos <= 110) {
-			icon[1].setPosition(glm::vec3(xposx, yposy, 0.0));
+			icon[1].setPosition(glm::vec3(xposx, 600 - yposy, 0.0));
 		}
 		else if (xpos >= 416 && xpos <= 457 && ypos >= 50 && ypos <= 110) {
-			icon[2].setPosition(glm::vec3(xposx, yposy, 0.0));
+			icon[2].setPosition(glm::vec3(xposx, 600 - yposy, 0.0));
 		}
 		else if (xpos >= 460 && xpos <= 497 && ypos >= 50 && ypos <= 110) {
-			icon[3].setPosition(glm::vec3(xposx, yposy, 0.0));
+			icon[3].setPosition(glm::vec3(xposx, 600 - yposy, 0.0));
 		}
 		else if (xpos >= 504 && xpos <= 546 && ypos >= 50 && ypos <= 110) {
-			icon[4].setPosition(glm::vec3(xposx, yposy, 0.0));
+			icon[4].setPosition(glm::vec3(xposx, 600 - yposy, 0.0));
 		}
 		else if (xpos >= 550 && xpos <= 800 && ypos >= 115 && ypos <= 420) {
 			yoshi.setPosition(glm::vec3(255, 510, 0.0));
